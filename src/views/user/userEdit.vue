@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container-detail"  element-loading-text="系统处理中，请稍等"  v-loading.lock="fullscreenLoading">
+  <div class="app-container-detail">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>新增用户</span>
@@ -8,7 +8,7 @@
           <el-button type="primary" @click="submitFn">提交</el-button>
           <el-button @click="resetFn">重置</el-button>
         </div>
-        <el-form :model="newUserForm" ref="addUserRef" :inline="true" label-width="100px" label-position="top">
+        <el-form :model="newUserForm" ref="addUserRef" :inline="true" label-width="100px" label-position="top" element-loading-text="系统处理中，请稍等" v-loading.lock="fullscreenLoading">
           <el-row>
             <el-form-item label="头像" required prop="user_pic">
               <div>
@@ -72,9 +72,10 @@
 </template>
 
 <script>
-import { reguserAPI } from '@/api/user'
+import { getUserInfoAPI, updateUserInfoAPI } from '@/api/user'
+
 export default {
-  name: 'newUser',
+  name: 'userEdit',
   data () {
     return {
       newUserForm:{
@@ -91,12 +92,29 @@ export default {
         signature:'',
       },
       placeholderInput:'',
-      fullscreenLoading:false,
+      fullscreenLoading:true,
       activeName:null,
+      userId:null,
     }
   },
   created () {
     // this.getArtCateFn()
+  },
+  mounted(){
+    console.log('query',this.$route.query);
+    if (this.$route.query.id) {
+      this.userId = this.$route.query.id;
+      setTimeout(() => {
+        getUserInfoAPI(this.userId).then((res) => {
+          this.newUserForm = res.data.profile[0];
+          console.log('this.newUserForm',this.newUserForm);
+          this.fullscreenLoading = false;
+        }).catch(err=>{
+          this.fullscreenLoading = false;
+          console.log('err',err);
+        })
+      }, 500);
+    }
   },
   methods: {
     // 选择图片 点击事件
@@ -126,6 +144,7 @@ export default {
       this.$refs.addUserRef.validate(async valid => {
         if (valid) {
           let form = {
+            id:this.userId,
             user_pic:'',
             username:'',
             password:'',
@@ -145,10 +164,10 @@ export default {
             }
           }
           console.log(form)
-          const { data: res } = await reguserAPI(form)
+          const { data: res } = await updateUserInfoAPI(form)
           if (res.status == 1 && res.message == '用户名被占用，请更换其他用户名！') return this.$message.error(res.message)
           if (res.status !== 0) return this.$message.error('新增用户失败！')
-          this.$message.success('新增成功！')
+          this.$message.success('修改成功！')
           this.$refs.addUserRef.resetFields()
           this.$router.push({path:'user-list'})
         } else {

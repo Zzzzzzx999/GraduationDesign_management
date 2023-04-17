@@ -6,13 +6,13 @@
     <!-- 表单 -->
     <el-form :model="pwdForm" :rules="pwdFormRules" ref="pwdFormRef" label-width="100px">
       <el-form-item label="原密码" prop="old_pwd">
-        <el-input v-model="pwdForm.old_pwd" type="password"></el-input>
+        <el-input show-password v-model="pwdForm.old_pwd" type="password"></el-input>
       </el-form-item>
       <el-form-item label="新密码" prop="new_pwd">
-        <el-input v-model="pwdForm.new_pwd" type="password"></el-input>
+        <el-input show-password v-model="pwdForm.new_pwd" type="password"></el-input>
       </el-form-item>
       <el-form-item label="确认新密码" prop="re_pwd">
-        <el-input v-model="pwdForm.re_pwd" type="password"></el-input>
+        <el-input show-password v-model="pwdForm.re_pwd" type="password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="updatePwdFn">修改密码</el-button>
@@ -74,8 +74,9 @@ export default {
     updatePwdFn () {
       this.$refs.pwdFormRef.validate(async valid => {
         if (valid) {
+          this.pwdForm.id = this.$store.state.userInfo.id
           const { data: res } = await updatePwdAPI(this.pwdForm)
-          if (res.status !== 0) return this.$message.error('更新密码失败！')
+          if (res.status !== 0) return this.$message.error(res.message)
           this.$message.success('更新密码成功！')
           this.$refs.pwdFormRef.resetFields()
           // 重置密码（被动退出）
@@ -89,7 +90,15 @@ export default {
     },
     // 重置点击事件
     resetFn () {
-      this.$refs.userFormRef.resetFields()
+      this.$confirm('确定执行重置操作？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info'
+      }).then(() => {
+        // el-form 提供了一个重置表单（并且还能重置报错提示）
+        this.$refs.pwdFormRef.resetFields()
+        this.$message.success('重置成功')
+      })
     }
   }
 }

@@ -30,8 +30,24 @@ const routes = [
         component: () => import('@/views/admin/userPwd')
       },
       {
-        path: 'art-cate',
-        component: () => import('@/views/article/artCate')
+        path: 'station-cate',
+        component: () => import('@/views/station/stationCate')
+      },
+      {
+        path: 'station-add',
+        component: () => import('@/views/station/newStation')
+      },
+      {
+        path: 'station-detail',
+        component: () => import('@/views/station/stationDetail')
+      },
+      {
+        path: 'station-edit',
+        component: () => import('@/views/station/stationEdit')
+      },
+      {
+        path: 'station-list',
+        component: () => import('@/views/station/stationList')
       },
       {
         path: 'user-add',
@@ -40,8 +56,15 @@ const routes = [
       {
         path: 'user-list',
         component: () => import('@/views/user/userList')
-      }
-
+      },
+      {
+        path: 'user-edit',
+        component: () => import('@/views/user/userEdit')
+      },
+      {
+        path: 'user-detail',
+        component: () => import('@/views/user/userDetail')
+      },
     ]
   },
   {

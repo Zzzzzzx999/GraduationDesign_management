@@ -4,26 +4,26 @@
       <el-row class="spannel_list" :gutter="10">
         <el-col :sm="6" :xs="12">
           <div class="spannel">
-            <em>10015</em><span>篇</span>
-            <b>总文章数</b>
+            <em>10015</em><span>台</span>
+            <b>总电台数</b>
           </div>
         </el-col>
         <el-col :sm="6" :xs="12">
           <div class="spannel scolor01">
-            <em>123</em><span>篇</span>
-            <b>日新增文章数</b>
+            <em>123</em><span>台</span>
+            <b>日新增电台数</b>
           </div>
         </el-col>
         <el-col :sm="6" :xs="12">
           <div class="spannel scolor02">
-            <em>35</em><span>条</span>
-            <b>评论总数</b>
+            <em>352</em><span>万</span>
+            <b>播放量</b>
           </div>
         </el-col>
         <el-col :sm="6" :xs="12">
           <div class="spannel scolor03">
-            <em>123</em><span>条</span>
-            <b>日新增评论数</b>
+            <em>5</em><span>万</span>
+            <b>日新增播放量</b>
           </div>
         </el-col>
       </el-row>
@@ -69,36 +69,36 @@ export default {
       // 绘制面积图表
       // 数据源(模拟后台返回的数据)
       const aListAll = [
-        { count: 36, date: '2019-04-13' },
-        { count: 52, date: '2019-04-14' },
-        { count: 78, date: '2019-04-15' },
-        { count: 85, date: '2019-04-16' },
-        { count: 65, date: '2019-04-17' },
-        { count: 72, date: '2019-04-18' },
-        { count: 88, date: '2019-04-19' },
-        { count: 64, date: '2019-04-20' },
-        { count: 72, date: '2019-04-21' },
-        { count: 90, date: '2019-04-22' },
-        { count: 96, date: '2019-04-23' },
-        { count: 100, date: '2019-04-24' },
-        { count: 102, date: '2019-04-25' },
-        { count: 110, date: '2019-04-26' },
-        { count: 123, date: '2019-04-27' },
-        { count: 100, date: '2019-04-28' },
-        { count: 132, date: '2019-04-29' },
-        { count: 146, date: '2019-04-30' },
-        { count: 200, date: '2019-05-01' },
-        { count: 180, date: '2019-05-02' },
-        { count: 163, date: '2019-05-03' },
-        { count: 110, date: '2019-05-04' },
-        { count: 80, date: '2019-05-05' },
-        { count: 82, date: '2019-05-06' },
-        { count: 70, date: '2019-05-07' },
-        { count: 65, date: '2019-05-08' },
-        { count: 54, date: '2019-05-09' },
-        { count: 40, date: '2019-05-10' },
-        { count: 45, date: '2019-05-11' },
-        { count: 38, date: '2019-05-12' }
+        { count: 36, date: '2023-04-13' },
+        { count: 52, date: '2023-04-14' },
+        { count: 78, date: '2023-04-15' },
+        { count: 85, date: '2023-04-16' },
+        { count: 65, date: '2023-04-17' },
+        { count: 72, date: '2023-04-18' },
+        { count: 88, date: '2023-04-19' },
+        { count: 64, date: '2023-04-20' },
+        { count: 72, date: '2023-04-21' },
+        { count: 90, date: '2023-04-22' },
+        { count: 96, date: '2023-04-23' },
+        { count: 100, date: '2023-04-24' },
+        { count: 102, date: '2023-04-25' },
+        { count: 110, date: '2023-04-26' },
+        { count: 123, date: '2023-04-27' },
+        { count: 100, date: '2023-04-28' },
+        { count: 132, date: '2023-04-29' },
+        { count: 146, date: '2023-04-30' },
+        { count: 200, date: '2023-05-01' },
+        { count: 180, date: '2023-05-02' },
+        { count: 163, date: '2023-05-03' },
+        { count: 110, date: '2023-05-04' },
+        { count: 80, date: '2023-05-05' },
+        { count: 82, date: '2023-05-06' },
+        { count: 70, date: '2023-05-07' },
+        { count: 65, date: '2023-05-08' },
+        { count: 54, date: '2023-05-09' },
+        { count: 40, date: '2023-05-10' },
+        { count: 45, date: '2023-05-11' },
+        { count: 38, date: '2023-05-12' }
       ]
 
       // 但是图标要求直接给数字的值, 所以要把对象的值取出来形成2个只有值的数组
@@ -113,7 +113,7 @@ export default {
       // 面积图的echarts配置项(参考文档复制)
       const chartopt = {
         title: {
-          text: '月新增文章数', // 标题
+          text: '月新增电台数', // 标题
           left: 'center', // 位置居中
           top: '10' // 标题距离容器顶部px
         },
@@ -121,7 +121,7 @@ export default {
           trigger: 'axis' // 坐标轴触发(鼠标放在坐标轴就能出提示框)
         },
         legend: { // 图例组件(每种颜色的意思)
-          data: ['新增文章'], // 图例文字解释(要和series里name对应)
+          data: ['新增电台'], // 图例文字解释(要和series里name对应)
           top: '40' // 距离容器顶部px
         },
         toolbox: { // 工具栏
@@ -144,13 +144,13 @@ export default {
         ],
         yAxis: [ // 垂直轴显示
           {
-            name: '月新增文章数',
+            name: '月新增电台数',
             type: 'value' // 以series里的data值做划分段
           }
         ],
         series: [ // 系列(控制图表类型和数据)
           {
-            name: '新增文章',
+            name: '新增电台',
             type: 'line', // 折线图
             smooth: true, // 是否平滑视觉引导线，默认不平滑，可以设置成 true 平滑显示
             areaStyle: { type: 'default' }, // 区域填充样式。设置后显示成区域面积图。
@@ -175,7 +175,7 @@ export default {
       const oPieopt = {
         title: {
           top: 10,
-          text: '分类文章数量比',
+          text: '分类电台数量比',
           x: 'center'
         },
         tooltip: {
@@ -190,7 +190,7 @@ export default {
         legend: { // 图例组件
           x: 'center',
           top: 65,
-          data: ['奇趣事', '会生活', '爱旅行', '趣美味'] // 每个部分对应的数据名(要和series里name对应)
+          data: ['情感', '音乐推荐', '创作翻唱', '有声书'] // 每个部分对应的数据名(要和series里name对应)
         },
         toolbox: { // 工具箱
           show: true,
@@ -222,10 +222,10 @@ export default {
             radius: ['45%', '60%'],
             center: ['50%', '65%'],
             data: [
-              { value: 300, name: '奇趣事' },
-              { value: 100, name: '会生活' },
-              { value: 260, name: '爱旅行' },
-              { value: 180, name: '趣美味' }
+              { value: 300, name: '情感' },
+              { value: 100, name: '音乐推荐' },
+              { value: 260, name: '创作翻唱' },
+              { value: 180, name: '有声书' }
             ]
           }
         ]
@@ -237,7 +237,7 @@ export default {
       const oColumn = echarts.init(document.getElementById('column_show'))
       const oColumnopt = {
         title: {
-          text: '文章访问量',
+          text: '电台访问量',
           left: 'center',
           top: '10'
         },
@@ -245,7 +245,7 @@ export default {
           trigger: 'axis'
         },
         legend: {
-          data: ['奇趣事', '会生活', '爱旅行', '趣美味'],
+          data: ['情感', '音乐推荐', '创作翻唱', '有声书'],
           top: '40'
         },
         toolbox: {
@@ -272,7 +272,7 @@ export default {
         ],
         series: [
           {
-            name: '奇趣事',
+            name: '情感',
             type: 'bar',
             barWidth: 20,
             areaStyle: { type: 'default' },
@@ -282,7 +282,7 @@ export default {
             data: [800, 708, 920, 1090, 1200]
           },
           {
-            name: '会生活',
+            name: '音乐推荐',
             type: 'bar',
             barWidth: 20,
             areaStyle: { type: 'default' },
@@ -292,7 +292,7 @@ export default {
             data: [400, 468, 520, 690, 800]
           },
           {
-            name: '爱旅行',
+            name: '创作翻唱',
             type: 'bar',
             barWidth: 20,
             areaStyle: { type: 'default' },
@@ -302,7 +302,7 @@ export default {
             data: [500, 668, 520, 790, 900]
           },
           {
-            name: '趣美味',
+            name: '有声书',
             type: 'bar',
             barWidth: 20,
             areaStyle: { type: 'default' },

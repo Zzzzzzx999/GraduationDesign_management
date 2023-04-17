@@ -65,7 +65,7 @@ export const getMenusListAPI = () => {
 export const updateUserInfoAPI = ({ id, username, nickname, email, user_pic }) => {
   return request({
     url: '/my/userinfo',
-    methods: 'PUT',
+    method: 'PUT',
     data: {
       id,
       username,
@@ -98,7 +98,7 @@ export const updatePwdAPI = ({ old_pwd, new_pwd, re_pwd }) => {
   })
 }
 
-// 获取文章分类
+// 获取电台分类
 export const getArtCateListAPI = () => {
   return request({
     url: '/my/cate/list'

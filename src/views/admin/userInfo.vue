@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import { updateUserInfoAPI } from '@/api'
+import { updateAdminInfoAPI } from '@/api/index'
 
 export default {
   name: 'UserInfo',
   data () {
     return {
       userForm: {
-        username: this.$store.state.userInfo.username, // 默认值用登录后获取到的用户名
+        username: this.$store.state.userInfo.name, // 默认值用登录后获取到的用户名
         nickname: '',
         email: ''
       },
@@ -61,16 +61,16 @@ export default {
     submitFn () {
       this.$refs.userFormRef.validate(async valid => {
         if (valid) {
-          console.log(this.userForm)
           // 因为后端更新用户基本资料接口，需要带id过去，userForm对象里本身没有
           // 所有缺少id,就给他添加一个
           this.userForm.id = this.$store.state.userInfo.id
-          const { data: res } = await updateUserInfoAPI(this.userForm)
+          const { data: res } = await updateAdminInfoAPI(this.userForm)
           if (res.status !== 0) return this.$message.error('更新用户信息失败！')
           // 更新用户信息成功，刷新 Vuex 中的数据
           this.$message.success('更新成功！')
           // 更新让vuex获取下最新的用户数据
           this.$store.dispatch('getUserInfoActions')
+          this.$router.push({path:'home'})
         } else {
           // 未通过校验
           return false
@@ -79,8 +79,15 @@ export default {
     },
     // 重置按钮点击事件
     resetFn () {
-      // el-form 提供了一个重置表单（并且还能重置报错提示）
-      this.$refs.userFormRef.resetFields()
+      this.$confirm('确定执行重置操作？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info'
+      }).then(() => {
+        // el-form 提供了一个重置表单（并且还能重置报错提示）
+        this.$refs.userFormRef.resetFields()
+        this.$message.success('重置成功')
+      })
     }
   }
 }

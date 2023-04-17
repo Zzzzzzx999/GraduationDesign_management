@@ -69,6 +69,7 @@ export default {
       this.$message.success(res.message)
       // 立刻让vuex里actions(获取用户信息的actions)再请求一次后台更新Vuex里的值
       this.$store.dispatch('getUserInfoActions')
+      this.$router.push({path:'home'})
     }
   }
 }

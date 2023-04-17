@@ -2,38 +2,33 @@
   <div>
     <el-card class="box-card">
       <div slot="header" class="clearfix header-box">
-        <span>用户列表</span>
-        <!-- <el-button type="primary" size="mini" @click="addCateShowDialogFn">添加用户</el-button> -->
+        <span>电台列表</span>
+        <!-- <el-button type="primary" size="mini" @click="addCateShowDialogFn">添加电台</el-button> -->
         <!-- <el-button icon="el-icon-document-add" @click="handleAdd" class="ems-button">新建</el-button> -->
       </div>
       <div class="dialog-footer-right">
-        <el-button icon="el-icon-document-add" size="mini" type="primary" @click="addUser">添加</el-button>
+        <el-button icon="el-icon-document-add" size="mini" type="primary" @click="addStation">添加</el-button>
         <el-button icon="el-icon-edit" size="mini" type="primary" :disabled="buttonEdit" @click="handleUpdate('edit')">编辑</el-button>
         <el-button icon="el-icon-document" size="mini" type="info" :disabled="buttonDetail" @click="handleUpdate('detail')">详情</el-button>
         <el-button icon="el-icon-delete" size="mini" type="danger" :disabled="buttonDel" @click="handleDelete">删除</el-button>
       </div>
       <!-- 分类数据表格 -->
-      <el-table :data="userList" style="width: 100%" border stripe @selection-change="handleSelectionChange" element-loading-text="系统处理中，请稍等"  v-loading.lock="fullscreenLoading">
+      <el-table :data="stationList" style="width: 100%" border stripe @selection-change="handleSelectionChange" element-loading-text="系统处理中，请稍等"  v-loading.lock="fullscreenLoading">
         <!-- type是table-column内置属性，你告诉他用index，意思就是第一个单元格用索引值 -->
            <el-table-column fixed type="selection" align="center" min-width="100"/>
            <!-- <el-table-column fixed type="index" label="序号" align="center" min-width="100"/> -->
            <el-table-column fixed prop="id" label="id" align="center" min-width="70"/>
-           <!-- <el-table-column prop="user_pic" label="头像" align="center" min-width="100"/> -->
-           <el-table-column fixed label="图片" align="center" prop="user_pic" min-width="100" >
+           <el-table-column fixed label="主题背景" align="center" prop="cover_image" min-width="100" >
             <template slot-scope="scope">
-              <el-image v-if="scope.row.user_pic"
-                style="width: 50px; height: 50px" :src="scope.row.user_pic" fit="true"></el-image>
+              <el-image v-if="scope.row.cover_image"
+                style="width: 50px; height: 50px" :src="scope.row.cover_image" fit="true"></el-image>
             </template>
           </el-table-column>
-           <el-table-column prop="username" label="用户名" align="center" min-width="150"/>
-           <el-table-column prop="nickname" label="昵称" align="center" min-width="150"/>
-           <el-table-column prop="email" label="邮箱" align="center" min-width="100"/>
-           <el-table-column prop="growthValue" label="成长值" align="center" min-width="70"/>
-           <el-table-column prop="works" label="作品" align="center" min-width="70"/>
-           <el-table-column prop="follows" label="关注" align="center" min-width="70"/>
-           <el-table-column prop="followeds" label="粉丝" align="center" min-width="70"/>
-           <el-table-column prop="giftsReceived" label="礼物" align="center" min-width="70"/>
-           <el-table-column prop="signature" label="个性签名" align="center" min-width="250"/>
+           <el-table-column prop="title" label="电台标题" align="center" min-width="150"/>
+           <el-table-column prop="content" label="电台内容" align="center" min-width="150"/>
+           <el-table-column prop="cateName" label="电台类型" align="center" min-width="100"/>
+           <el-table-column prop="author" label="发布者" align="center" min-width="70"/>
+           <el-table-column prop="pub_date" label="发布日期" align="center" min-width="70"/>
            <!-- <el-table-column label="操作">
              <el-button type="primary" size="mini">修改</el-button>
              <el-button type="danger" size="mini">删除</el-button>
@@ -46,14 +41,13 @@
 </template>
 
 <script>
-import { getUserListAPI } from '@/api'
-import { deleteUserAPI } from '@/api/user'
+import { getStationListAPI,deleteStationAPI } from '@/api/radioStation'
 export default {
-  name: 'userList',
+  name: 'stationList',
   data () {
     return {
-      userList: [], // 用户列表数组
-      selection:[], // 当前选择用户
+      stationList: [], // 电台列表数组
+      selection:[], // 当前选择电台
       buttonEdit:true,
       buttonDetail:true,
       buttonDel:true,
@@ -65,27 +59,27 @@ export default {
   },
   created () {
     setTimeout(() => {
-      this.getUserListAPI()
+      this.getStationListAPI()
     }, 800);
   },
   methods: {
-    // 获取用户分类列表
-    async getUserListAPI () {
-      const res = await getUserListAPI()
+    // 获取电台分类列表
+    async getStationListAPI () {
+      const res = await getStationListAPI()
       /* let params = {
         offset: (this.currentPage - 1) * this.pageSize,
         limit: this.pageSize
       } */
-      this.userList = res.data.data
+      this.stationList = res.data.data
       let pageFirst = ((this.currentPage-1)*this.pageSize)
       let pageLast = ((this.currentPage)*this.pageSize)
-      this.userList = this.userList.slice(pageFirst, pageLast);
+      this.stationList = this.stationList.slice(pageFirst, pageLast);
       this.total = res.data.data.length;
       this.fullscreenLoading = false
-      console.log(this.userList);
+      console.log(this.stationList);
     },
-    addUser() {
-      this.$router.push({path:'user-add'})
+    addStation() {
+      this.$router.push({path:'station-add'})
     },
     handleSelectionChange(selection){
       console.log('section',selection)
@@ -111,7 +105,7 @@ export default {
     handleUpdate(stous){
       let clientId = this.selection[0].id
       this.$router.push({
-        path: `user-${stous}`,
+        path: `station-${stous}`,
         query: {
           id: clientId,
         },
@@ -119,10 +113,8 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete() {
-      // let clientId = this.selection[0].id
-      // console.log(clientId);
       console.log('this.selection.length',this.selection.length);
-      this.$confirm("确定删除所选用户？", "警告", {
+      this.$confirm("确定删除所选电台？", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -131,7 +123,7 @@ export default {
         if (this.selection.length > 1) {
           var a = 0
           for (let key in this.selection) {
-            deleteUserAPI(this.selection[key].id).then( res =>{
+            deleteStationAPI(this.selection[key].id).then( res =>{
               if (res.data.status == 0){
                 a = a + 1
               }
@@ -139,16 +131,16 @@ export default {
           }
           setTimeout(() => {
             if (a == this.selection.length) {
-              // 删除用户成功
-              this.$message.success('删除用户成功!')
+              // 删除电台成功
+              this.$message.success('删除电台成功!')
             }else{
-              this.$message.error('删除用户失败!')
+              this.$message.error('删除电台失败!')
             }
           }, 100);
         }else{
-          deleteUserAPI(this.selection[0].id).then( res =>{
+          deleteStationAPI(this.selection[0].id).then( res =>{
             if (res.data.status !== 0) return this.$message.error(res.data.message)
-            // 删除用户成功
+            // 删除电台成功
             this.$message.success(res.data.message)
           })
         }
@@ -161,8 +153,7 @@ export default {
     handlePageChange(newPage) {
       // 获取新的数据并更新页面
       this.currentPage = newPage;
-      this.getUserListAPI();
-      // this.userList = 
+      this.getStationListAPI();
     },
   }
 }

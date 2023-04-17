@@ -47,15 +47,14 @@ export const loginAPI = ({ username, password }) => {
   })
 }
 // 获取用户信息函数处理方法
-export const getUserInfoAPI = () => {
+export const getUserInfoAPI = (id) => {
   return request({
     url: '/admin/adminInfo',
     params: {
-      id: '1'
+      id
     }
     // method不写默认就是'get'方式请求
     // 传参给后台：params(查询字符串query),data(请求体body),headers(请求头)
-
   })
 }
 // 获取侧边栏的数据
@@ -65,19 +64,19 @@ export const getMenusListAPI = () => {
   })
 }
 // 更新用户信息
-export const updateUserInfoAPI = ({ id, username, nickname, email, user_pic }) => {
+export const updateAdminInfoAPI = (params) => {
   return request({
-    url: '/admin/userinfo',
-    methods: 'POST',
+    url: '/admin/adminInfo',
+    method: 'POST',
     data: {
       /* id,
       username,
       nickname,
       email,
       user_pic */
-      id,
-      name: username,
-      admin_pic: user_pic
+      id: params.id,
+      name: params.nickname,
+      email: params.email
     }
   })
 }
@@ -93,11 +92,12 @@ export const updateUserAvatarAPI = (avatar, id) => {
   })
 }
 // 更新用户密码
-export const updatePwdAPI = ({ old_pwd, new_pwd, re_pwd }) => {
+export const updatePwdAPI = ({ id, old_pwd, new_pwd, re_pwd }) => {
   return request({
     url: '/admin/updateAdminPwd',
     method: 'POST',
     data: {
+      id,
       old_pwd,
       new_pwd,
       re_pwd

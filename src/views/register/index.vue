@@ -11,10 +11,10 @@
     <el-input  placeholder="请输入用户名" v-model="form.username"></el-input>
   </el-form-item>
   <el-form-item prop="password">
-    <el-input type="password" placeholder="请输入密码" v-model="form.password"></el-input>
+    <el-input type="password" show-password placeholder="请输入密码" v-model="form.password"></el-input>
   </el-form-item>
   <el-form-item prop="repassword">
-    <el-input type="password" placeholder="请再次输入密码" v-model="form.repassword"></el-input>
+    <el-input type="password" show-password placeholder="请再次输入密码" v-model="form.repassword"></el-input>
   </el-form-item>
   <el-form-item>
     <el-button class="btn-reg" type="primary" @click="registerFn">注册</el-button>

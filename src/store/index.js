@@ -33,15 +33,17 @@ export default new Vuex.Store({
     // 保存用户信息
     updateUserInfo (state, val) {
       // 保护密码安全防止外泄
-      val.password = '******'
+      // console.log('val',val)
+      if (val !== undefined) {
+        val.password = '******'
+      }
       state.userInfo = val
     }
   },
   actions: {
     // 请求用户信息
     async getUserInfoActions (store) {
-      const res = await getUserInfoAPI()
-      // console.log(res)
+      const res = await getUserInfoAPI(store.state.userInfo.id)
       store.commit('updateUserInfo', res.data.profile[0])
     }
   },

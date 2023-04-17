@@ -11,7 +11,7 @@
     <el-input  placeholder="请输入用户名" v-model="loginForm.username"></el-input>
   </el-form-item>
   <el-form-item prop="password">
-    <el-input type="password" placeholder="请输入密码" v-model="loginForm.password"></el-input>
+    <el-input type="password" show-password placeholder="请输入密码" v-model="loginForm.password"></el-input>
   </el-form-item>
   <el-form-item>
     <el-button class="btn-reg" type="primary" @click="loginFn">登录</el-button>
@@ -75,6 +75,8 @@ export default {
             // 成功
             this.$message.success(res.message)
             this.updateToken(res.token)
+            this.$store.state.userInfo.id = res.profile.id
+            this.$store.dispatch('getUserInfoActions')
             this.$router.push('/')
           } else {
             this.$message.error(res.message)

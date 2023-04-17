@@ -78,16 +78,16 @@
               <a href="/home/dashboard.html" target="fm"><span class="iconfont icon-home"></span>首页</a>
             </li>
             <li class="layui-nav-item">
-              <a class="" href="javascript:;"><span class="iconfont icon-16"></span>文章管理</a>
+              <a class="" href="javascript:;"><span class="iconfont icon-16"></span>电台管理</a>
               <dl class="layui-nav-child">
                 <dd>
-                  <a href="/article/art_cate.html" target="fm"><i class="layui-icon layui-icon-app"></i>文章类别</a>
+                  <a href="/article/art_cate.html" target="fm"><i class="layui-icon layui-icon-app"></i>电台类别</a>
                 </dd>
                 <dd>
-                  <a href="/article/art_list.html" target="fm"><i class="layui-icon layui-icon-app"></i>文章列表</a>
+                  <a href="/article/art_list.html" target="fm"><i class="layui-icon layui-icon-app"></i>电台列表</a>
                 </dd>
                 <dd>
-                  <a href="/article/art_pub.html" target="fm"><i class="layui-icon layui-icon-app"></i>发布文章</a>
+                  <a href="/article/art_pub.html" target="fm"><i class="layui-icon layui-icon-app"></i>发布电台</a>
                 </dd>
               </dl>
             </li>
@@ -143,22 +143,22 @@ export default {
         {
           indexPath:'javascript:;',
           icon:'iconfont icon-16',
-          title:'文章管理',
+          title:'电台管理',
           children:[
             {
-              indexPath:'art-cate',
+              indexPath:'station-add',
               icon:'layui-icon layui-icon-app',
-              title:'文章类别',
+              title:'电台发布',
             },
             {
-              indexPath:'/article/art_list.html',
+              indexPath:'station-cate',
               icon:'layui-icon layui-icon-app',
-              title:'文章列表',
+              title:'电台类别',
             },
             {
-              indexPath:'../article/artCate',
+              indexPath:'station-list',
               icon:'layui-icon layui-icon-app',
-              title:'发布文章',
+              title:'电台列表',
             },
           ],
         },
@@ -176,11 +176,6 @@ export default {
               indexPath:'user-list',
               icon:'layui-icon layui-icon-app',
               title:'用户列表',
-            },
-            {
-              indexPath:'../article/artCate',
-              icon:'layui-icon layui-icon-app',
-              title:'发布文章',
             },
           ],
         },
